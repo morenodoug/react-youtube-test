@@ -7,9 +7,31 @@ function App() {
       <Grid item>
         <h1>Header</h1>
       </Grid>
-      <Grid item container>
-        <h2> content</h2>
-        <VideoCards/>
+
+      <Grid item container xs={12}>
+
+        <Grid item xs={false} sm={1}/>
+        <Grid item    container   xs={12}  sm={10} spacing={1}> 
+          <Grid item  xs={12} sm={3}>
+            <VideoCards/>
+          </Grid>
+      
+          <Grid item  xs={12} sm={3}>
+            <VideoCards/>
+          </Grid>
+
+          <Grid item  xs={12} sm={3}>
+            <VideoCards/>
+          </Grid>
+          <Grid item  xs={12} sm={3}>
+            <VideoCards/>
+          </Grid>      
+        </Grid> 
+        <Grid item xs={false} sm={1}/>
+      </Grid>
+      <Grid item container spacing={2}>
+                
+       
 
       </Grid>
     </Grid>
