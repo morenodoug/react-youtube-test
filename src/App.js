@@ -12,18 +12,18 @@ function App() {
 
         <Grid item xs={false} sm={1}/>
         <Grid item    container   xs={12}  sm={10} spacing={1}> 
-          <Grid item  xs={12} sm={3}>
+          <Grid item  xs={12} sm={6} md={3}>
             <VideoCards/>
           </Grid>
       
-          <Grid item  xs={12} sm={3}>
+          <Grid item  xs={12} sm={6} md={3}>
             <VideoCards/>
           </Grid>
 
-          <Grid item  xs={12} sm={3}>
+          <Grid item  xs={12} sm={6} md={3}>
             <VideoCards/>
           </Grid>
-          <Grid item  xs={12} sm={3}>
+          <Grid item  xs={12} sm={6} md={3}>
             <VideoCards/>
           </Grid>      
         </Grid> 
