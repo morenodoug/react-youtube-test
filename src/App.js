@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from "@material-ui/core";
-import { VideoCards } from "./app/components/VideoCard";
+import { Content } from './app/components/Content';
 function App() {
   return (
     <Grid container direction="column">
@@ -11,21 +11,8 @@ function App() {
       <Grid item container xs={12}>
 
         <Grid item xs={false} sm={1}/>
-        <Grid item    container   xs={12}  sm={10} spacing={1}> 
-          <Grid item  xs={12} sm={6} md={3}>
-            <VideoCards/>
-          </Grid>
-      
-          <Grid item  xs={12} sm={6} md={3}>
-            <VideoCards/>
-          </Grid>
-
-          <Grid item  xs={12} sm={6} md={3}>
-            <VideoCards/>
-          </Grid>
-          <Grid item  xs={12} sm={6} md={3}>
-            <VideoCards/>
-          </Grid>      
+        <Grid item    container   xs={12}  sm={10} spacing={1}>    
+          <Content/>   
         </Grid> 
         <Grid item xs={false} sm={1}/>
       </Grid>

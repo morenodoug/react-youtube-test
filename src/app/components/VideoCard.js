@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -15,7 +16,7 @@ const useStyles = makeStyles({
   });
   
 
-export const VideoCards =(props)=>{
+export const VideoCard =(props)=>{
     const classes = useStyles()
 
     const description =   `"These Guys Again ("Up" But Everything Is Even Worse 12312321312)123123123123123"`.substr(0,25)
@@ -49,6 +50,12 @@ export const VideoCards =(props)=>{
         </Card>
       </div>
     )
+}
 
+VideoCard.propTypes ={
+  videoTitle : PropTypes.string,
+  videoDescription: PropTypes.string,
+  channelName: PropTypes.string,
+  date: PropTypes.object
 
 }
