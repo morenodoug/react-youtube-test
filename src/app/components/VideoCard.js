@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 export const VideoCard =(props)=>{
     const classes = useStyles()
 
-    const { title,description, publishedAt, channelTitle,  thumbnailSrc , viewCount} =   props
+    const { title, publishedAt, channelTitle,  thumbnailSrc , viewCount} =   props
    
     return (
         <div>
