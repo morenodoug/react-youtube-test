@@ -6,6 +6,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import { Tooltip } from '@material-ui/core';
 
 const useStyles = makeStyles({
  
@@ -19,31 +20,34 @@ const useStyles = makeStyles({
 export const VideoCard =(props)=>{
     const classes = useStyles()
 
-    const description =   `"These Guys Again ("Up" But Everything Is Even Worse 12312321312)123123123123123"`.substr(0,25)
+    const { title,description, publishedAt, channelTitle,  thumbnailSrc , viewCount} =   props
+   
     return (
-        <div onClick={() => alert("holi")}>
+        <div>
 
           
           <Card  variant="outlined">
           <CardActionArea>
             <CardMedia
               className={classes.media}         
-              title="Contemplative Reptile"
-              image="https://i.ytimg.com/vi/ouOPC_KjIW4/mqdefault.jpg"
+              title={title}
+              image={thumbnailSrc}
             >
             </CardMedia>
             <CardContent variant="outlined">
-              <Typography gutterBottom variant="h6" component="h2" noWrap={true} >
-              {description}
+              <Tooltip title={title} arrow>
+                <Typography gutterBottom variant="h6" component="h2" noWrap={true} >
+                {title}
+                </Typography>
+              </Tooltip>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {channelTitle}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                Danny Gonzalez
+                {viewCount} Views
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                1236232 Views
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                2020-07-31T18:27:52Z Ago
+               {publishedAt} Ago
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -53,9 +57,11 @@ export const VideoCard =(props)=>{
 }
 
 VideoCard.propTypes ={
-  videoTitle : PropTypes.string,
-  videoDescription: PropTypes.string,
-  channelName: PropTypes.string,
-  date: PropTypes.object
+  title : PropTypes.string,
+  description: PropTypes.string,
+  channelTitle: PropTypes.string,
+  publishedAt: PropTypes.object,
+  thumbnailSrc: PropTypes.string,
+  viewCount: PropTypes.string
 
 }
