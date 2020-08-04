@@ -21,11 +21,9 @@ export const VideoCard =(props)=>{
     const classes = useStyles()
 
     const { title, publishedAt, channelTitle,  thumbnailSrc , viewCount} =   props
-   
+    const titleToShow = formatTitle(title);
     return (
-        <div>
-
-          
+ 
           <Card  variant="outlined">
           <CardActionArea>
             <CardMedia
@@ -37,7 +35,7 @@ export const VideoCard =(props)=>{
             <CardContent variant="outlined">
               <Tooltip title={title} arrow>
                 <Typography gutterBottom variant="h6" component="h2" noWrap={true} >
-                {title}
+                {titleToShow}
                 </Typography>
               </Tooltip>
               <Typography variant="body2" color="textSecondary" component="p">
@@ -52,7 +50,7 @@ export const VideoCard =(props)=>{
             </CardContent>
           </CardActionArea>
         </Card>
-      </div>
+   
     )
 }
 
@@ -64,4 +62,11 @@ VideoCard.propTypes ={
   thumbnailSrc: PropTypes.string,
   viewCount: PropTypes.string
 
+}
+
+function formatTitle(title) {
+  if (title.length > 20) {
+    return `${title.slice(0, 19)}...`;
+  }
+  return title;
 }

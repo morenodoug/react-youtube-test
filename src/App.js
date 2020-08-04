@@ -2,11 +2,10 @@ import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 
-
-import { Grid } from "@material-ui/core";
 import { Content } from "./app/components/Content";
 import { NavBar } from "./app/components/NavBar";
 import {SideBar} from './app/components/SideBar'
+import {Grid} from "@material-ui/core"
 
 
 const drawerWidth = 280;
@@ -48,19 +47,21 @@ function App( props) {
   const { window } = props;
   const classes = useStyles();
 
-  const container =
+  const containerSide =
     window !== undefined ? () => window().document.body : undefined;
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <NavBar/>
-      <SideBar container={container}/>
+      <SideBar container={containerSide}/>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-            <Grid container spacing={2}>
-              <Content/>
-            </Grid>
+          <Grid container>
+            <Content />
+          </Grid>
+          
+           
       </main>
     </div>
   );
