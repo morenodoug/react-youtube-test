@@ -3,7 +3,8 @@ import { Grid } from "@material-ui/core";
 import { VideoCard } from "./VideoCard";
 import { useSelector } from "react-redux";
 import { getAllTrendingVideosSelector } from "../../features/homeVideos/homeVideosSlice";
-export const Content =(props) =>{
+
+export const TrendingVideos =(props) =>{
     const  trendingVideos = useSelector(getAllTrendingVideosSelector) 
     const videoCards = trendingVideos.map(createVideoCard)
     return(
@@ -11,8 +12,7 @@ export const Content =(props) =>{
             <Grid item xs={2} sm={2}  md={false} lg={false} />
             <Grid item container xs={8} sm={8} md={12}  spacing={2} >
                 {videoCards}
-            </Grid>
-                
+            </Grid>             
             <Grid item xs={2} sm={2}  md={false} lg={false}/>
         </Grid>
     )
@@ -20,9 +20,7 @@ export const Content =(props) =>{
 
 
 function createVideoCard(video){
-
     return (
-
         <Grid item  xs={12} sm={12} md={4} lg={3} key={video.id}>
             <VideoCard   
                 description = {video.snippet.description}
