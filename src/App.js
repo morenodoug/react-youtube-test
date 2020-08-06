@@ -1,16 +1,10 @@
 import React from "react";
-import {  useEffect} from "react";
-
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
-
-
 import { NavBar } from "./app/components/NavBar";
 import {SideBar} from './app/components/SideBar'
 import {Grid} from "@material-ui/core"
-
 import { TrendingVideos } from "./app/components/TrendingVideos";
-import { getTrendingVideos } from "./app/utils/GoogleApi";
 const drawerWidth = 280;
 
 const useStyles = makeStyles(theme => ({
@@ -34,15 +28,6 @@ function App( props) {
 
   const containerSide =
     window !== undefined ? () => window().document.body : undefined;
-
-
-  useEffect(() =>{
-    
-    getTrendingVideos().then( res => console.log(res))
-
-
-  })
-
 
   return (
     <div className={classes.root}>
