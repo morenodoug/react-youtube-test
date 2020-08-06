@@ -1,19 +1,22 @@
 import  React  from "react";
 import { useEffect } from "react";
-import { Grid, Button } from "@material-ui/core";
-import { VideoCard } from "./VideoCard";
 import { useSelector , useDispatch} from "react-redux";
+import { Grid, Button, Fade } from "@material-ui/core";
+import { VideoCard } from "./VideoCard";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+
 import { getAllTrendingVideosSelector , fetchTrendingVideos,  getVideoFetchStatus , getNextPageToken} from "../../features/homeVideos/homeVideosSlice";
 
 
 export const TrendingVideos =(props) =>{
 
     const dispatch = useDispatch()
-
-
     const  trendingVideos = useSelector(getAllTrendingVideosSelector) 
     const  videoFetchStatus = useSelector(getVideoFetchStatus)
     const  nextPageToken =  useSelector(getNextPageToken)
+
+    const showLoading = (videoFetchStatus === "pending")
     useEffect(() => {
         console.log("is rendering")
         if(videoFetchStatus === "idle"){
@@ -33,7 +36,14 @@ export const TrendingVideos =(props) =>{
                     {videoCards}
                 </Grid>             
                 <Grid item xs={2} sm={2}  md={false} lg={false}/>
-            </Grid>            
+            </Grid>
+            <Fade in={showLoading}> 
+                <Grid container  justify="center"> 
+                    <CircularProgress color="secondary"/>  
+                </Grid>          
+            </Fade> 
+ 
+                     
         </>
 
     )

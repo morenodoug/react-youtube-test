@@ -1,4 +1,3 @@
-
 import axios from "axios";
 
 const YOUTUBE_URI ="https://www.googleapis.com/youtube/v3/videos"
@@ -11,7 +10,7 @@ export const TRENDING_VIDEOS_CHART_VALUE= "mostPopular"
 export const PART_KEY = "part"
 export const DEFAULT_PART_VALUE ="snippet,contentDetails,statistics"
 
-export const MAX_ITEMS_RESULT_KEY ="maxWidth"
+export const MAX_ITEMS_RESULT_KEY ="maxResults"
 export const MAX_ITEMS_RESULT_DEFAULT_VALUE = "8"
 
 export const PAGE_TOKEN_KEY ="pageToken"
