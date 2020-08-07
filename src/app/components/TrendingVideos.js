@@ -4,10 +4,8 @@ import { useSelector , useDispatch} from "react-redux";
 import { Grid, Button, Fade } from "@material-ui/core";
 import { VideoCard } from "./VideoCard";
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-
 import { getAllTrendingVideosSelector , fetchTrendingVideos,  getVideoFetchStatus , getNextPageToken} from "../../features/homeVideos/homeVideosSlice";
-
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export const TrendingVideos =(props) =>{
 
@@ -24,31 +22,30 @@ export const TrendingVideos =(props) =>{
             .then(res => console.log(res))
         }
     })
-
     const videoCards = trendingVideos.map(createVideoCard)
     return(
         <>
-            <Button  variant ="contained" color="primary" onClick={ () => onClickHandler(nextPageToken,videoFetchStatus, dispatch)} >next Page </Button>
-            <Grid container   spacing={1} justify="space-evenly">
-                
-                <Grid item xs={2} sm={2}  md={false} lg={false} />
-                <Grid item container xs={8} sm={8} md={12}  spacing={2} >
-                    {videoCards}
-                </Grid>             
-                <Grid item xs={2} sm={2}  md={false} lg={false}/>
-            </Grid>
+            <InfiniteScroll
+                dataLength ={videoCards.length}
+                hasMore={nextPageToken != null}
+                next={ () => onClickHandler(nextPageToken,videoFetchStatus, dispatch) }
+                style={{overflow: "hidden" }}    >        
+                <Grid container   spacing={1} justify="space-evenly">    
+                    <Grid item xs={2} sm={2}  md={false} lg={false} />
+                    <Grid item container xs={8} sm={8} md={12}  spacing={2} >
+                            {videoCards}                  
+                    </Grid>                                    
+                    <Grid item xs={2} sm={2}  md={false} lg={false}/>
+                </Grid>
+            </InfiniteScroll>
             <Fade in={showLoading}> 
                 <Grid container  justify="center"> 
                     <CircularProgress color="secondary"/>  
                 </Grid>          
-            </Fade> 
- 
-                     
+            </Fade>                
         </>
-
     )
 }
-
 
 function createVideoCard(video){
     return (
