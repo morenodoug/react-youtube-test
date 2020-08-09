@@ -21,10 +21,12 @@ export const VideoCard =(props)=>{
     const classes = useStyles()
 
     const { title, publishedAt, channelTitle,  thumbnailSrc , viewCount} =   props
+    const videoInfo = { title, publishedAt, channelTitle,  thumbnailSrc , viewCount}
     const titleToShow = formatTitle(title);
     return (
  
-          <Card  variant="outlined">
+        <Card  variant="outlined"  draggable="true" data-video={JSON.stringify(videoInfo)}
+          onDragStart={onDragStartHandler  }>
           <CardActionArea>
             <CardMedia
               className={classes.media}         
@@ -69,4 +71,10 @@ function formatTitle(title) {
     return `${title.slice(0, 19)}...`;
   }
   return title;
+}
+
+function onDragStartHandler(e){
+
+//  console.log(e.target.dataset.video)
+  e.dataTransfer.setData("text",e.target.dataset.video)
 }

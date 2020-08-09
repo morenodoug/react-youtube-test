@@ -33,7 +33,7 @@ export const NavBar = (props) =>{
     <AppBar position="fixed" className={classes.appBar}>
     <Toolbar>
       <IconButton
-        color="inherit"
+        color=""
         aria-label="open drawer"
         edge="start"
         onClick={() => dispatch(setMobileOpen({}))}
