@@ -33,7 +33,7 @@ function App( props) {
     <div className={classes.root}>
       <CssBaseline />
       <NavBar/>
-      <SideBar container={containerSide}/>
+      <SideBar container={containerSide} />
       <main className={classes.content}>
         <div className={classes.toolbar} />
           <Grid container>           

@@ -76,7 +76,9 @@ export const SideBar =(props) =>{
 
     return (
    
-        <nav className={classes.drawer} aria-label="mailbox folders">
+        <nav className={classes.drawer} aria-label="mailbox folders" 
+         onDragOver={allowDrop}
+         onDrop={dropHandler} >
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             <Hidden smUp implementation="css">
                 <Drawer
@@ -108,4 +110,17 @@ export const SideBar =(props) =>{
             </Hidden>
         </nav>        
     )
+}
+
+function allowDrop(ev) {
+  ev.preventDefault();
+  console.log("allow drop")
+}
+
+function dropHandler(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  console.log("dropped")
+  console.log(JSON.parse(data))
+  // ev.target.appendChild(document.getElementById(data));
 }
