@@ -20,8 +20,8 @@ const useStyles = makeStyles({
 export const VideoCard =(props)=>{
     const classes = useStyles()
 
-    const { title, publishedAt, channelTitle,  thumbnailSrc , viewCount} =   props
-    const videoInfo = { title, publishedAt, channelTitle,  thumbnailSrc , viewCount}
+    const { title, publishedAt, channelTitle,  thumbnailSrc , viewCount, videoId} =   props
+    const videoInfo = { title, publishedAt, channelTitle,  thumbnailSrc , viewCount, videoId}
     const titleToShow = formatTitle(title);
     return (
  

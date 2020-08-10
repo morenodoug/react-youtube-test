@@ -1,7 +1,7 @@
 import  React  from "react";
 import { useEffect } from "react";
 import { useSelector , useDispatch} from "react-redux";
-import { Grid, Button, Fade } from "@material-ui/core";
+import { Grid, Fade } from "@material-ui/core";
 import { VideoCard } from "./VideoCard";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { getAllTrendingVideosSelector , fetchTrendingVideos,  getVideoFetchStatus , getNextPageToken} from "../../features/homeVideos/homeVideosSlice";
@@ -56,6 +56,7 @@ function createVideoCard(video){
                 channelTitle ={video.snippet.channelTitle} 
                 viewCount ={video.statistics.viewCount}
                 thumbnailSrc ={video.snippet.thumbnails.medium.url}
+                videoId={video.id}
                 />
         </Grid>        
     )

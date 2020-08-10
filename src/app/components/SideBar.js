@@ -11,6 +11,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { setMobileOpen ,isMobileOpen} from "../../features/ui/uiSlice";
+import { addVideo} from "../../features/playList/playListSlice";
+
 
 const drawerWidth = 280;
 
@@ -78,7 +80,7 @@ export const SideBar =(props) =>{
    
         <nav className={classes.drawer} aria-label="mailbox folders" 
          onDragOver={allowDrop}
-         onDrop={dropHandler} >
+         onDrop={(event) =>{ dropHandler(event, dispatch)}} >
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             <Hidden smUp implementation="css">
                 <Drawer
@@ -114,13 +116,17 @@ export const SideBar =(props) =>{
 
 function allowDrop(ev) {
   ev.preventDefault();
-  console.log("allow drop")
+
 }
 
-function dropHandler(ev) {
+function dropHandler(ev, dispatch) {
   ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  console.log("dropped")
-  console.log(JSON.parse(data))
-  // ev.target.appendChild(document.getElementById(data));
+  const data = ev.dataTransfer.getData("text");
+  const videoData = JSON.parse(data)
+  console.log(videoData)
+  if(videoData.videoId === undefined )
+    return 
+  
+  dispatch(addVideo({video:videoData}))
+  
 }
