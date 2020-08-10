@@ -75,6 +75,6 @@ function formatTitle(title) {
 
 function onDragStartHandler(e){
 
-//  console.log(e.target.dataset.video)
   e.dataTransfer.setData("text",e.target.dataset.video)
 }
+

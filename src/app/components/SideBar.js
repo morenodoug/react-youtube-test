@@ -11,7 +11,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import { setMobileOpen ,isMobileOpen} from "../../features/ui/uiSlice";
-import { addVideo} from "../../features/playList/playListSlice";
+import { addVideo , getPlayListVideosSelector} from "../../features/playList/playListSlice";
+import { VideoCard } from "../components/VideoCard";
 
 
 const drawerWidth = 280;
@@ -57,6 +58,9 @@ export const SideBar =(props) =>{
     const {container} = props
     const dispatch = useDispatch() 
     const mobileOpen = useSelector(isMobileOpen)
+    const playListVideos = useSelector(getPlayListVideosSelector)
+
+    const videoCards = playListVideos.map(createVideoCard )
 
     const drawer = (
         <div>
@@ -71,6 +75,7 @@ export const SideBar =(props) =>{
                 <ListItemText primary={text} />
               </ListItem>
             ))}
+            {videoCards}
           </List>
           <Divider />
         </div>
@@ -129,4 +134,16 @@ function dropHandler(ev, dispatch) {
   
   dispatch(addVideo({video:videoData}))
   
+}
+
+function createVideoCard(video){
+
+  return <VideoCard   
+  description = {video.description}
+  title ={video.title}
+  channelTitle ={video.channelTitle} 
+  viewCount ={video.viewCount}
+  thumbnailSrc ={video.thumbnailSrc}
+  videoId={video.id}
+  />;
 }

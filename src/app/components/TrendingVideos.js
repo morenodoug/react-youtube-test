@@ -28,7 +28,7 @@ export const TrendingVideos =(props) =>{
             <InfiniteScroll
                 dataLength ={videoCards.length}
                 hasMore={nextPageToken != null}
-                next={ () => onClickHandler(nextPageToken,videoFetchStatus, dispatch) }
+                next={ () => onScrollHandler(nextPageToken,videoFetchStatus, dispatch) }
                 style={{overflow: "hidden" }}    >        
                 <Grid container   spacing={1} justify="space-evenly">    
                     <Grid item xs={2} sm={2}  md={false} lg={false} />
@@ -62,7 +62,7 @@ function createVideoCard(video){
     )
 }
 
-function onClickHandler(nextPageToken, videoFetchStatus, dispatch){
+function onScrollHandler(nextPageToken, videoFetchStatus, dispatch){
     if( nextPageToken !== null  && videoFetchStatus !== "pending" ){
         dispatch(fetchTrendingVideos(nextPageToken))
     }

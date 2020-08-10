@@ -10,7 +10,7 @@ const playListSlice = createSlice({
     reducers:{
         addVideo: (currentState, action) =>{
             const newVideo = {...action.payload.video} 
-            const alreadyAdded = currentState.videos.some((video) => video.videoId === newVideo)
+            const alreadyAdded = currentState.videos.some((video) => video.videoId === newVideo.videoId)
             if(!alreadyAdded){
                 currentState.videos.push(newVideo)
             }
@@ -20,6 +20,8 @@ const playListSlice = createSlice({
     }
 })
 export const    {addVideo} = playListSlice.actions
+
+export const getPlayListVideosSelector =  state => state.playList.videos
 export  default playListSlice.reducer
 
 
