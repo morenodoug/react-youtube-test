@@ -60,26 +60,17 @@ export const SideBar =(props) =>{
     const mobileOpen = useSelector(isMobileOpen)
     const playListVideos = useSelector(getPlayListVideosSelector)
 
-    const videoCards = playListVideos.map(createVideoCard )
-
+    const videoCards = playListVideos.map(createVideoCard )   
     const drawer = (
-        <div>
-          <div className={classes.toolbar} />
-          <Divider />
-          <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-            {videoCards}
-          </List>
-          <Divider />
-        </div>
-      );    
+      <div>
+        <div className={classes.toolbar} />
+        <Divider />
+        <List>
+          {videoCards}
+        </List>
+        <Divider />
+      </div>
+    );    
 
     return (
    
@@ -128,7 +119,6 @@ function dropHandler(ev, dispatch) {
   ev.preventDefault();
   const data = ev.dataTransfer.getData("text");
   const videoData = JSON.parse(data)
-  console.log(videoData)
   if(videoData.videoId === undefined )
     return 
   
@@ -139,11 +129,12 @@ function dropHandler(ev, dispatch) {
 function createVideoCard(video){
 
   return <VideoCard   
-  description = {video.description}
-  title ={video.title}
-  channelTitle ={video.channelTitle} 
-  viewCount ={video.viewCount}
-  thumbnailSrc ={video.thumbnailSrc}
-  videoId={video.id}
+          description = {video.description}
+          title ={video.title}
+          channelTitle ={video.channelTitle} 
+          viewCount ={video.viewCount}
+          thumbnailSrc ={video.thumbnailSrc}
+          videoId={video.videoId}
+          key={video.videoId}
   />;
 }
