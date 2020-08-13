@@ -48,7 +48,7 @@ const useStyles = makeStyles( theme=> ({
 }))
 export const SearchForm = (props) =>{
 
-    const {searchQueryValue, setSearchQuery, onSubmitSearchForm} = props 
+    const { value,  onChange, onSubmitSearchForm} = props 
 
   
     const classes = useStyles()
@@ -65,8 +65,8 @@ export const SearchForm = (props) =>{
             input: classes.inputInput
           }}
           inputProps={{ "aria-label": "search" }}
-          value={searchQueryValue}
-          onChange={(event) => setSearchQuery(event.target.value)}
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
         />
         <IconButton
           type="submit"

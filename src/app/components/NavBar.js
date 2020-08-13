@@ -70,7 +70,7 @@ export const NavBar = (props) =>{
         <MenuIcon />
       </IconButton>
       <div className={classes.searchWrapper}>
-        <SearchForm   searchQueryValue={searchQuery} setSearchQuery={setSearchQuery} onSubmitSearchForm={ () => onSubmitSearchForm(searchQuery,history)}/>
+        <SearchForm   value={searchQuery} onChange={setSearchQuery} onSubmitSearchForm={ () => onSubmitSearchForm(searchQuery,history)}/>
       </div>
     </Toolbar>
   </AppBar>     
