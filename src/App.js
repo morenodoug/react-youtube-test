@@ -5,6 +5,8 @@ import { NavBar } from "./app/components/NavBar";
 import {SideBar} from './app/components/SideBar'
 import {Grid} from "@material-ui/core"
 import { TrendingVideos } from "./app/components/TrendingVideos";
+
+import {BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 const drawerWidth = 280;
 
 const useStyles = makeStyles(theme => ({
@@ -30,19 +32,26 @@ function App( props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <NavBar/>
-      <SideBar container={containerSide} />
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-          <Grid container>           
-            <TrendingVideos />
-          </Grid>
-          
-            
-      </main>
-    </div>
+    <Router>
+      <div className={classes.root}>
+        <CssBaseline />
+        <NavBar/>
+        <SideBar container={containerSide} />
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+            <Grid container>    
+            <Link to="/d">Public Page</Link>     
+              <Switch>
+                <Route exact path="/d" render={() => <h1>adasd</h1>}></Route>
+                <Route exact path="/">
+                  <TrendingVideos />
+                </Route>
+                
+              </Switch> 
+            </Grid>    
+        </main>
+      </div>
+    </Router>
   );
  
 }

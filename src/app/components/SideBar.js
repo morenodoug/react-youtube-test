@@ -5,11 +5,6 @@ import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import { setMobileOpen ,isMobileOpen} from "../../features/ui/uiSlice";
 import { addVideo , getPlayListVideosSelector} from "../../features/playList/playListSlice";
 import { VideoCard } from "../components/VideoCard";
@@ -68,7 +63,7 @@ export const SideBar =(props) =>{
         <List>
           {videoCards}
         </List>
-        <Divider />
+  
       </div>
     );    
 

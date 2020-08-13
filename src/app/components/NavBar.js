@@ -7,7 +7,8 @@ import {setMobileOpen} from '../../features/ui/uiSlice'
 import { InputBase } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import common from "@material-ui/core/colors/common";
-
+import {useState} from "react"
+import { useHistory,useLocation  } from "react-router-dom";
     
 const drawerWidth = 280;
 
@@ -74,6 +75,8 @@ export const NavBar = (props) =>{
 
     const classes = useStyles();
     const dispatch = useDispatch()
+    const  [searchQuery, setSearchQuery] = useState("")
+    const history = useHistory();
     return (
 
     <AppBar position="fixed" className={classes.appBar} color={common.white}> 
@@ -88,15 +91,18 @@ export const NavBar = (props) =>{
         <MenuIcon />
       </IconButton>
       <div className={classes.searchWrapper}>
-
-        <div className={classes.search}>
+     
+        <form className={classes.search} noValidate action="/search" onSubmit={(e) =>{e.preventDefault(); console.log(e); onSubmitSearchForm(searchQuery,history)}}>
           <InputBase
+            name="search"
             placeholder="Search…"
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput
             }}
             inputProps={{ "aria-label": "search" }}
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
           />
           <IconButton
             type="submit"
@@ -104,12 +110,75 @@ export const NavBar = (props) =>{
             className={classes.iconButton}
           >
             <SearchIcon />
-          </IconButton>
-        </div>
-
+          </IconButton>        
+        </form>
+      
       </div>
 
     </Toolbar>
   </AppBar>     
  )
+}
+
+function onSubmitSearchForm( searchQuery, history){
+
+  const cleanSearchQuery = searchQuery.trim()
+  if(cleanSearchQuery.length >0 )
+    history.push(`/results/?search_query=${cleanSearchQuery}`)
+
+}
+
+
+
+
+export const SearchForm = (props) =>{
+
+  const {searchQueryValue, setSearchQuery, onSubmitSearchForm} = props 
+  const useStyles = makeStyles( theme=> ({
+      search: {
+        display: "flex",
+        borderRadius: theme.shape.borderRadius,
+        borderStyle:"solid",
+  
+        backgroundColor: fade(theme.palette.common.white, 0.15),
+        "&:hover": {
+          backgroundColor: fade(theme.palette.common.white, 0.25)
+        },
+        marginLeft: 0,
+        width: "100%",
+        [theme.breakpoints.up("sm")]: {
+          marginLeft: theme.spacing(1),
+          width: "70%"
+        }
+      }
+  }))
+
+  const classes = useStyles()
+
+
+  return (
+
+    <form className={classes.search} noValidate  onSubmit={(e) =>{e.preventDefault(); onSubmitSearchForm()}}>
+      <InputBase
+        name="search"
+        placeholder="Search…"
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput
+        }}
+        inputProps={{ "aria-label": "search" }}
+        value={searchQueryValue}
+        onChange={(event) => setSearchQuery(event.target.value)}
+      />
+      <IconButton
+        type="submit"
+        aria-label="search"
+        className={classes.iconButton}
+      >
+        <SearchIcon />
+      </IconButton>        
+    </form>
+
+  )
+
 }
