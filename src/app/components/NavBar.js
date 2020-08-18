@@ -4,8 +4,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles ,fade} from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import {setMobileOpen} from '../../features/ui/uiSlice'
-import { InputBase } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
 import common from "@material-ui/core/colors/common";
 import {useState} from "react"
 import { useHistory  } from "react-router-dom";

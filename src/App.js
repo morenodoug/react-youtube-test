@@ -7,6 +7,7 @@ import {Grid} from "@material-ui/core"
 import { TrendingVideos } from "./app/components/TrendingVideos";
 
 import {BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { ResultVideosComponent } from "./features/resultVideos/ResultVideosComponent";
 const drawerWidth = 280;
 
 const useStyles = makeStyles(theme => ({
@@ -45,6 +46,11 @@ function App( props) {
                 <Route exact path="/d" render={() => <h1>adasd</h1>}></Route>
                 <Route exact path="/">
                   <TrendingVideos />
+                </Route>
+
+                <Route exact path="/results">
+                  <ResultVideosComponent/>
+
                 </Route>
                 
               </Switch> 

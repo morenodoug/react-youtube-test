@@ -49,13 +49,8 @@ const useStyles = makeStyles( theme=> ({
 export const SearchForm = (props) =>{
 
     const { value,  onChange, onSubmitSearchForm} = props 
-
-  
     const classes = useStyles()
-  
-  
     return (
-  
       <form className={classes.search} noValidate  onSubmit={(e) =>{e.preventDefault(); onSubmitSearchForm()}}>
         <InputBase
           name="search"
@@ -76,7 +71,5 @@ export const SearchForm = (props) =>{
           <SearchIcon />
         </IconButton>        
       </form>
-  
     )
-  
   }
