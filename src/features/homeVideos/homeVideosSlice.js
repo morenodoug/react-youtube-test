@@ -14,7 +14,7 @@ export const fetchTrendingVideos = createAsyncThunk('trendingVideos/fetchTrendin
 
 })
 
-export const  homeVideosSlice = createSlice({
+ const  homeVideosSlice = createSlice({
 
     name:'homeVideos',
     initialState: initialState,

@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState ={
-
+    status: 'idle',
+    error: null,
+    nextPageToken: null,
     videos: [
         {
           kind: 'youtube#video',

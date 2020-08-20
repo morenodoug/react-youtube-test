@@ -16,10 +16,8 @@ export const TrendingVideos =(props) =>{
 
     const showLoading = (videoFetchStatus === "pending")
     useEffect(() => {
-        console.log("is rendering")
         if(videoFetchStatus === "idle"){
             dispatch(fetchTrendingVideos())
-            .then(res => console.log(res))
         }
     })
     const videoCards = trendingVideos.map(createVideoCard)

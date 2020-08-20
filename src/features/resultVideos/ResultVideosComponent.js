@@ -1,12 +1,45 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Grid from "@material-ui/core/Grid";
 import { useSelector } from "react-redux";
 import { getResultVideosSelector } from "./resultVideosSlice";
 import { VideoCard } from "../../app/components/VideoCard";
-export const ResultVideosComponent = (props) =>{
+import { useLocation , Redirect} from "react-router-dom";
+import { getQueryVideos } from "../../app/utils/GoogleApi";
 
+
+export const ResultVideosComponent = (props) =>{
+    const location = useLocation() 
+    const searchParams = new URLSearchParams(location.search)
+    const hasSearchParams =  searchParams.has("search_query")
+    let searchQuery
+    if(hasSearchParams){
+        searchQuery = searchParams.get("search_query")
+
+    } 
+    
+    useEffect(( ) =>{
+        if(hasSearchParams &&  searchQuery !== ""){
+            try{
+                getQueryVideos(searchQuery, null)
+                .then(res => console.log(res))
+                .catch(err  => console.log(err))  
+                
+
+            }catch(error){}
+        }else{
+
+            alert("redirect")
+        }
+
+
+
+
+    })
     const resultVideos = useSelector(getResultVideosSelector)
     const videoCards = resultVideos.map(createVideoCard)
+
+    if(!hasSearchParams || searchQuery ==="")
+        return <Redirect to="/"/>
 
     return(
 
