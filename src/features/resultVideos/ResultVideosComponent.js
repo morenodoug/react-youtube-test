@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 import { getResultVideosSelector } from "./resultVideosSlice";
 import { VideoCard } from "../../app/components/VideoCard";
 import { useLocation , Redirect} from "react-router-dom";
-import { getQueryVideos } from "../../app/utils/GoogleApi";
+import { getQueryVideos, getVideoData } from "../../app/utils/GoogleApi";
+import SearchVideosService, {searchVideoParser} from "../../app/utils/SearchVideosService";
 
 
 export const ResultVideosComponent = (props) =>{
@@ -20,9 +21,24 @@ export const ResultVideosComponent = (props) =>{
     useEffect(( ) =>{
         if(hasSearchParams &&  searchQuery !== ""){
             try{
-                getQueryVideos(searchQuery, null)
+                // getQueryVideos(searchQuery, null)
+                // .then(res => {
+                //     console.log(res)
+                //     const videoIds =  res.items.map(video =>  video.id.videoId)
+                //     return getVideoData(...videoIds)
+
+                // })
+                // .then(res => {
+                //     console.log("consulta by id ")
+                //     console.log(res)
+                // }).catch(err =>{
+                //     console.log("con un demonio")
+                //     console.log(err)
+                // })     
+                const searchVideosService = new SearchVideosService(getQueryVideos,getVideoData, searchVideoParser)
+                searchVideosService.searchVideosByString(searchQuery)
                 .then(res => console.log(res))
-                .catch(err  => console.log(err))  
+                .catch(err => console.log(err))
                 
 
             }catch(error){}
