@@ -1,17 +1,20 @@
 import React, {useEffect} from "react";
 import Grid from "@material-ui/core/Grid";
-import { useSelector } from "react-redux";
-import { getResultVideosSelector } from "./resultVideosSlice";
+import { useSelector ,useDispatch} from "react-redux";
+import { getResultVideosSelector,getSearchQuerySelector,getVideoSearchStatusSelector , resetState , fetchVideos, setSearchQuery} from "./resultVideosSlice";
 import { VideoCard } from "../../app/components/VideoCard";
 import { useLocation , Redirect} from "react-router-dom";
-import { getQueryVideos, getVideoData } from "../../app/utils/GoogleApi";
-import SearchVideosService, {searchVideoParser} from "../../app/utils/SearchVideosService";
+
 
 
 export const ResultVideosComponent = (props) =>{
     const location = useLocation() 
+    const dispatch = useDispatch()
     const searchParams = new URLSearchParams(location.search)
     const hasSearchParams =  searchParams.has("search_query")
+    const lastSearchQuery = useSelector(getSearchQuerySelector)
+    const searchVideosStatus = useSelector(getVideoSearchStatusSelector)
+
     let searchQuery
     if(hasSearchParams){
         searchQuery = searchParams.get("search_query")
@@ -19,35 +22,11 @@ export const ResultVideosComponent = (props) =>{
     } 
     
     useEffect(( ) =>{
-        if(hasSearchParams &&  searchQuery !== ""){
-            try{
-                // getQueryVideos(searchQuery, null)
-                // .then(res => {
-                //     console.log(res)
-                //     const videoIds =  res.items.map(video =>  video.id.videoId)
-                //     return getVideoData(...videoIds)
-
-                // })
-                // .then(res => {
-                //     console.log("consulta by id ")
-                //     console.log(res)
-                // }).catch(err =>{
-                //     console.log("con un demonio")
-                //     console.log(err)
-                // })     
-                const searchVideosService = new SearchVideosService(getQueryVideos,getVideoData, searchVideoParser)
-                searchVideosService.searchVideosByString(searchQuery)
-                .then(res => console.log(res))
-                .catch(err => console.log(err))
-                
-
-            }catch(error){}
-        }else{
-
-            alert("redirect")
+        if( lastSearchQuery !== searchQuery){
+            dispatch(setSearchQuery(searchQuery))
+        }else  if(hasSearchParams && searchVideosStatus === "idle"){
+            dispatch(fetchVideos({searchQuery}))
         }
-
-
 
 
     })
