@@ -22,18 +22,13 @@ export const resultVideosSlice = createSlice({
     name:"resultVideos",
     initialState: initialState,
     reducers:{
-      resetState: (currentState,action) =>{
-        currentState.videos = []
-        currentState.status = 'idle'
-        currentState.nextPageToken = null
-        currentState.error = null
-        currentState.searchQuery = ''
-      },
+
       setSearchQuery: (currentState,action) =>{
         currentState.searchQuery = action.payload
         currentState.status = 'idle'
         currentState.nextPageToken = null
-        currentState.error = null        
+        currentState.error = null     
+        currentState.videos =[]   
       }
     },
     extraReducers:{
@@ -54,7 +49,7 @@ export const resultVideosSlice = createSlice({
 })
 
 export default resultVideosSlice.reducer 
-export const {resetState, setSearchQuery}  = resultVideosSlice.actions
+export const { setSearchQuery}  = resultVideosSlice.actions
 
 export  const getResultVideosSelector = state => state.resultVideos.videos
 export const getSearchQuerySelector = state => state.resultVideos.searchQuery

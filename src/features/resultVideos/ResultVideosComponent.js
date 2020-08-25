@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import Grid from "@material-ui/core/Grid";
 import { useSelector ,useDispatch} from "react-redux";
-import { getResultVideosSelector,getSearchQuerySelector,getVideoSearchStatusSelector , resetState , fetchVideos, setSearchQuery} from "./resultVideosSlice";
+import { getResultVideosSelector,getSearchQuerySelector,getVideoSearchStatusSelector  , fetchVideos, setSearchQuery} from "./resultVideosSlice";
 import { VideoCard } from "../../app/components/VideoCard";
 import { useLocation , Redirect} from "react-router-dom";
 
