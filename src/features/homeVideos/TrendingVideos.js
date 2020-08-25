@@ -2,9 +2,9 @@ import  React  from "react";
 import { useEffect } from "react";
 import { useSelector , useDispatch} from "react-redux";
 import { Grid, Fade } from "@material-ui/core";
-import { VideoCard } from "./VideoCard";
+import { VideoCard } from "../../app/components/VideoCard";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { getAllTrendingVideosSelector , fetchTrendingVideos,  getVideoFetchStatus , getNextPageToken} from "../../features/homeVideos/homeVideosSlice";
+import { getAllTrendingVideosSelector , fetchTrendingVideos,  getVideoFetchStatus , getNextPageToken} from "./homeVideosSlice";
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 export const TrendingVideos =(props) =>{

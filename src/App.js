@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { NavBar } from "./app/components/NavBar";
 import {SideBar} from './app/components/SideBar'
 import {Grid} from "@material-ui/core"
-import { TrendingVideos } from "./app/components/TrendingVideos";
+import { TrendingVideos } from "./features/homeVideos/TrendingVideos";
 
 import {BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { ResultVideosComponent } from "./features/resultVideos/ResultVideosComponent";
@@ -41,7 +41,6 @@ function App( props) {
         <main className={classes.content}>
           <div className={classes.toolbar} />
             <Grid container>    
-            <Link to="/d">Public Page</Link>     
               <Switch>
                 <Route exact path="/d" render={() => <h1>adasd</h1>}></Route>
                 <Route exact path="/">
