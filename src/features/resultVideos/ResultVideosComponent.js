@@ -8,6 +8,7 @@ import {getResultVideosSelector,getSearchQuerySelector,getVideoSearchStatusSelec
 import { VideoCard } from "../../app/components/VideoCard";
 import { useLocation , Redirect} from "react-router-dom";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { IDLE_STATUS, PENDING_STATUS } from "../../app/utils/ApiStatusConstants";
 
 
 export const ResultVideosComponent = (props) =>{
@@ -18,7 +19,7 @@ export const ResultVideosComponent = (props) =>{
     const lastSearchQuery = useSelector(getSearchQuerySelector)
     const searchVideosStatus = useSelector(getVideoSearchStatusSelector)
     const nextPageToken = useSelector(getNextPageTokenSelector)
-    const showLoading = (searchVideosStatus === "pending")
+    const showLoading = (searchVideosStatus === PENDING_STATUS)
     let searchQuery
     if(hasSearchParams){
         searchQuery = searchParams.get("search_query")
@@ -28,7 +29,7 @@ export const ResultVideosComponent = (props) =>{
     useEffect(( ) =>{
         if( lastSearchQuery !== searchQuery){
             dispatch(setSearchQuery(searchQuery))
-        }else  if(hasSearchParams && searchVideosStatus === "idle"){
+        }else  if(hasSearchParams && searchVideosStatus === IDLE_STATUS){
             dispatch(fetchVideos({searchQuery}))
         }
 
@@ -86,7 +87,7 @@ function createVideoCard(video){
 }
 
 function onScrollHandler(  searchQuery,searchVideosStatus, nextPageToken, dispatch , fetchVideos){
-    if(nextPageToken !== null  && searchVideosStatus !== 'pending'){
+    if(nextPageToken !== null  && searchVideosStatus !== PENDING_STATUS){
         dispatch(fetchVideos({searchQuery, nextPageToken}))
     }
 

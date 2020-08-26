@@ -7,6 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { getAllTrendingVideosSelector , fetchTrendingVideos,  getVideoFetchStatus , getNextPageToken} from "./homeVideosSlice";
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import { PENDING_STATUS } from "../../app/utils/ApiStatusConstants";
 export const TrendingVideos =(props) =>{
 
     const dispatch = useDispatch()
@@ -14,7 +15,7 @@ export const TrendingVideos =(props) =>{
     const  videoFetchStatus = useSelector(getVideoFetchStatus)
     const  nextPageToken =  useSelector(getNextPageToken)
 
-    const showLoading = (videoFetchStatus === "pending")
+    const showLoading = (videoFetchStatus === PENDING_STATUS)
     useEffect(() => {
         if(videoFetchStatus === "idle"){
             dispatch(fetchTrendingVideos())
@@ -61,7 +62,7 @@ function createVideoCard(video){
 }
 
 function onScrollHandler(nextPageToken, videoFetchStatus, dispatch){
-    if( nextPageToken !== null  && videoFetchStatus !== "pending" ){
+    if( nextPageToken !== null  && videoFetchStatus !== PENDING_STATUS ){
         dispatch(fetchTrendingVideos(nextPageToken))
     }
 

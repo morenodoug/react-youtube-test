@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getQueryVideos, getVideoData } from "../../app/utils/GoogleApi";
 import SearchVideosService, {searchVideoParser} from "../../app/utils/SearchVideosService";
-
+import { IDLE_STATUS, PENDING_STATUS, FULFILLED_STATUS,REJECTED_STATUS } from "../../app/utils/ApiStatusConstants";
 
 export const  fetchVideos = createAsyncThunk("resultVideos",
  async  (queryData, thunkApi) =>{
@@ -12,7 +12,7 @@ export const  fetchVideos = createAsyncThunk("resultVideos",
 }) 
 const initialState ={
     searchQuery :'',
-    status: 'idle',
+    status: IDLE_STATUS,
     error: null,
     nextPageToken: null,
     videos: []
@@ -25,7 +25,7 @@ export const resultVideosSlice = createSlice({
 
       setSearchQuery: (currentState,action) =>{
         currentState.searchQuery = action.payload
-        currentState.status = 'idle'
+        currentState.status = IDLE_STATUS
         currentState.nextPageToken = null
         currentState.error = null     
         currentState.videos =[]   
@@ -33,16 +33,16 @@ export const resultVideosSlice = createSlice({
     },
     extraReducers:{
       [fetchVideos.pending] : (state, action) =>{
-        state.status = 'pending'
+        state.status = PENDING_STATUS
       },
       [fetchVideos.fulfilled] : (state, action) =>{
-        state.status ='fullifed'
+        state.status =FULFILLED_STATUS
         state.videos= state.videos.concat(action.payload.items)
         state.nextPageToken = action.payload.hasOwnProperty("nextPageToken") ? action.payload.nextPageToken : null 
       },
       [fetchVideos.rejected] : (state, action) =>{
 
-        state.status ="rejected"
+        state.status =REJECTED_STATUS
         state.error = action.error
         state.nextPageToken = null
       }
