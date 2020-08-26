@@ -1,10 +1,13 @@
 import React, {useEffect} from "react";
 import Grid from "@material-ui/core/Grid";
+import Fade from "@material-ui/core/Fade"
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { useSelector ,useDispatch} from "react-redux";
-import { getResultVideosSelector,getSearchQuerySelector,getVideoSearchStatusSelector  , fetchVideos, setSearchQuery} from "./resultVideosSlice";
+import {  fetchVideos, setSearchQuery} from "./resultVideosSlice";
+import {getResultVideosSelector,getSearchQuerySelector,getVideoSearchStatusSelector , getNextPageTokenSelector } from './resultVideosSlice'
 import { VideoCard } from "../../app/components/VideoCard";
 import { useLocation , Redirect} from "react-router-dom";
-
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 
 export const ResultVideosComponent = (props) =>{
@@ -14,7 +17,8 @@ export const ResultVideosComponent = (props) =>{
     const hasSearchParams =  searchParams.has("search_query")
     const lastSearchQuery = useSelector(getSearchQuerySelector)
     const searchVideosStatus = useSelector(getVideoSearchStatusSelector)
-
+    const nextPageToken = useSelector(getNextPageTokenSelector)
+    const showLoading = (searchVideosStatus === "pending")
     let searchQuery
     if(hasSearchParams){
         searchQuery = searchParams.get("search_query")
@@ -37,14 +41,31 @@ export const ResultVideosComponent = (props) =>{
         return <Redirect to="/"/>
 
     return(
+        <>
+            <InfiniteScroll
+                dataLength={videoCards.length}
+                hasMore={nextPageToken != null}
+                next = { () => onScrollHandler(searchQuery, searchVideosStatus, nextPageToken,dispatch, fetchVideos)}
+                style={{overflow: "hidden" }}
+            >
 
-        <Grid container   spacing={1} justify="space-evenly">    
-            <Grid item xs={2} sm={2}  md={false} lg={false} />
-            <Grid item container xs={8} sm={8} md={12}  spacing={2} >
-                    {videoCards}                  
-            </Grid>                                    
-            <Grid item xs={2} sm={2}  md={false} lg={false}/>
-        </Grid>    
+                <Grid container   spacing={1} justify="space-evenly">    
+                    <Grid item xs={2} sm={2}  md={false} lg={false} />
+                    <Grid item container xs={8} sm={8} md={12}  spacing={2} >
+                            {videoCards}                  
+                    </Grid>                                    
+                    <Grid item xs={2} sm={2}  md={false} lg={false}/>
+                </Grid>  
+
+            </InfiniteScroll>
+            <Fade in={showLoading}> 
+                <Grid container  justify="center"> 
+                    <CircularProgress color="secondary"/>  
+                </Grid>          
+            </Fade>       
+        </>
+        
+  
     )
 }
 
@@ -62,4 +83,11 @@ function createVideoCard(video){
                 />
         </Grid>        
     )
+}
+
+function onScrollHandler(  searchQuery,searchVideosStatus, nextPageToken, dispatch , fetchVideos){
+    if(nextPageToken !== null  && searchVideosStatus !== 'pending'){
+        dispatch(fetchVideos({searchQuery, nextPageToken}))
+    }
+
 }

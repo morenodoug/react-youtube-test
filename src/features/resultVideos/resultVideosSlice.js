@@ -44,6 +44,7 @@ export const resultVideosSlice = createSlice({
 
         state.status ="rejected"
         state.error = action.error
+        state.nextPageToken = null
       }
     }
 })
@@ -54,3 +55,5 @@ export const { setSearchQuery}  = resultVideosSlice.actions
 export  const getResultVideosSelector = state => state.resultVideos.videos
 export const getSearchQuerySelector = state => state.resultVideos.searchQuery
 export const getVideoSearchStatusSelector = state => state.resultVideos.status
+
+export const getNextPageTokenSelector = state => state.resultVideos.nextPageToken

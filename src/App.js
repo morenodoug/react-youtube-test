@@ -6,7 +6,7 @@ import {SideBar} from './app/components/SideBar'
 import {Grid} from "@material-ui/core"
 import { TrendingVideos } from "./features/homeVideos/TrendingVideos";
 
-import {BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ResultVideosComponent } from "./features/resultVideos/ResultVideosComponent";
 const drawerWidth = 280;
 
