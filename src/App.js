@@ -3,11 +3,13 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import { NavBar } from "./app/components/NavBar";
 import {SideBar} from './app/components/SideBar'
+import { VideoPlayer } from "./app/components/VideoPlayer";
 import {Grid} from "@material-ui/core"
 import { TrendingVideos } from "./features/homeVideos/TrendingVideos";
 
 import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ResultVideosComponent } from "./features/resultVideos/ResultVideosComponent";
+
 const drawerWidth = 280;
 
 const useStyles = makeStyles(theme => ({
@@ -49,8 +51,10 @@ function App( props) {
 
                 <Route exact path="/results">
                   <ResultVideosComponent/>
-
                 </Route>
+                <Route exact path="/player">
+                  <VideoPlayer id='Y8x3LWVC1L4'/>
+                </Route>                
                 
               </Switch> 
             </Grid>    
