@@ -44,7 +44,7 @@ function App( props) {
           <div className={classes.toolbar} />
             <Grid container>    
               <Switch>
-                <Route exact path="/d" render={() => <h1>adasd</h1>}></Route>
+
                 <Route exact path="/">
                   <TrendingVideos />
                 </Route>

@@ -10,7 +10,8 @@ import { setMobileOpen ,isMobileOpen} from "../../features/ui/uiSlice";
 import { addVideo , getPlayListVideosSelector, startPlayingList} from "../../features/playList/playListSlice";
 import { isVideoPlayerOpenSelector} from "../../features/videoPlayer/VideoPLayerSlice"
 import { VideoCard } from "../components/VideoCard";
-
+import { unwrapResult } from '@reduxjs/toolkit'
+import { useHistory  } from "react-router-dom";
 
 const drawerWidth = 280;
 
@@ -54,6 +55,7 @@ export const SideBar =(props) =>{
 
     const classes = useStyles();
     const theme = useTheme();
+    const history = useHistory()
     const {container} = props
     const dispatch = useDispatch() 
     const mobileOpen = useSelector(isMobileOpen)
@@ -69,7 +71,7 @@ export const SideBar =(props) =>{
             variant="contained" 
             color="primary" 
             size="medium" className={classes.playButton} 
-            onClick={()=> {alert("oli"); dispatch(startPlayingList({}))}} >  play</Button>
+            onClick={ () => startPlayingVideoList(history, dispatch, startPlayingList)} >  play</Button>
         <List>
           {videoCards}
         </List>
@@ -129,6 +131,14 @@ function dropHandler(ev, dispatch) {
   
   dispatch(addVideo({video:videoData}))
   
+}
+
+function startPlayingVideoList(historyProvider, dispatch,startPlayingListProvider ){
+  
+  dispatch(startPlayingListProvider())
+  .then(unwrapResult)
+  .then(result => historyProvider.push("/player") )
+  .catch(serializedError =>  alert("mejor no redirecciono"))
 }
 
 function createVideoCard(video){

@@ -56,7 +56,7 @@ export const NavBar = (props) =>{
     const history = useHistory();
     return (
 
-    <AppBar position="fixed" className={classes.appBar} color={common.white}> 
+  <AppBar position="fixed" className={classes.appBar} color={common.white}> 
     <Toolbar>
       <IconButton
         color=""
