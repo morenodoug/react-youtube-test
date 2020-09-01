@@ -5,8 +5,10 @@ import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
+import Button from "@material-ui/core/Button"
 import { setMobileOpen ,isMobileOpen} from "../../features/ui/uiSlice";
-import { addVideo , getPlayListVideosSelector} from "../../features/playList/playListSlice";
+import { addVideo , getPlayListVideosSelector, startPlayingList} from "../../features/playList/playListSlice";
+import { isVideoPlayerOpenSelector} from "../../features/videoPlayer/VideoPLayerSlice"
 import { VideoCard } from "../components/VideoCard";
 
 
@@ -42,11 +44,13 @@ const useStyles = makeStyles(theme => ({
     content: {
       flexGrow: 1,
       padding: theme.spacing(3)
+    },
+    playButton:{
+      marginTop:"8px"
     }
   }));    
 
 export const SideBar =(props) =>{
-
 
     const classes = useStyles();
     const theme = useTheme();
@@ -54,12 +58,18 @@ export const SideBar =(props) =>{
     const dispatch = useDispatch() 
     const mobileOpen = useSelector(isMobileOpen)
     const playListVideos = useSelector(getPlayListVideosSelector)
-
+    const isVideoPlayerOpen =useSelector(isVideoPlayerOpenSelector)
     const videoCards = playListVideos.map(createVideoCard )   
     const drawer = (
       <div>
         <div className={classes.toolbar} />
         <Divider />
+          <Button 
+            disabled = {isVideoPlayerOpen}
+            variant="contained" 
+            color="primary" 
+            size="medium" className={classes.playButton} 
+            onClick={()=> {alert("oli"); dispatch(startPlayingList({}))}} >  play</Button>
         <List>
           {videoCards}
         </List>
@@ -130,6 +140,6 @@ function createVideoCard(video){
           viewCount ={video.viewCount}
           thumbnailSrc ={video.thumbnailSrc}
           videoId={video.videoId}
-          key={video.videoId}
+          key={`list-${video.videoId}`}
   />;
 }

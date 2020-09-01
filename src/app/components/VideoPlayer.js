@@ -3,15 +3,17 @@ import React, {  useEffect} from 'react'
 import Grid from "@material-ui/core/Grid"
 import { Button } from '@material-ui/core';
 import { YOUTUBE_IFRAME_API } from "../utils/Constants";
+import { openVideoPlayer, closeVideoPlayer } from "../../features/videoPlayer/VideoPLayerSlice";
+import { useDispatch } from "react-redux";
+
 export const VideoPlayer = (props) =>{
     const { id } = props;
     let player = null
+    const dispatch = useDispatch()
     const loadVideo = () => {
         // the Player object is created uniquely based on the id in props
         player = new window.YT.Player(`youtube-player`, {
           playerVars:{playlist: `${id},GZ2ZHkBzmHQ,vRXZj0DzXIA,Fcl30mWtJQU` }
-    
-  
         });
     };
     useEffect(() => {
@@ -22,9 +24,14 @@ export const VideoPlayer = (props) =>{
         loadVideo();
   
       }
-
-      
     })
+
+    useEffect(() => {
+      dispatch(openVideoPlayer())
+      return () => {
+        dispatch(closeVideoPlayer())
+      }
+    }, [])
   
     return(
         <Grid container   spacing={1} justify="space-evenly">    
@@ -38,7 +45,6 @@ export const VideoPlayer = (props) =>{
             </Grid>                                    
             <Grid item xs={2} sm={2}  md={false} lg={false}/>
         </Grid>   
-
     )
 }
 
@@ -54,11 +60,6 @@ function  addScriptPlayerYoutubeApi(loadVideoProvider){
 
 
 function startVideo(player){
-    alert("aja")
-
     console.log(player)
-    // player.cuePlaylist({
-    //   listType:"playlist",
-    //   list:["JszxlTOq0Sw"]   })    
     player.cuePlaylist(["JszxlTOq0Sw","sypYNw6Fymk"]);
 }

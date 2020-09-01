@@ -1,9 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
 
 const initialState ={
-    videos: []
-}
+    videos: [],
+    playingVideoId: null
 
+}
+export const  startPlayingList = createAsyncThunk("startPlaying",
+async (_, thunkApi) =>{
+    const videoList  =  getPlayListVideosSelector(thunkApi.getState())
+    if(videoList.length >0){
+        return  videoList[0]
+    }
+    throw new Error("playList is empty")
+
+}
+)
 const playListSlice = createSlice({
     name:"playList",
     initialState: initialState,
@@ -14,8 +26,15 @@ const playListSlice = createSlice({
             if(!alreadyAdded){
                 currentState.videos.push(newVideo)
             }
-            
+        },
 
+    },
+    extraReducers:{
+        [startPlayingList.fulfilled]: ( currentState, action) =>{
+            currentState.playingVideoId = action.payload.videoId
+        },
+        [startPlayingList.rejected] : (currentState,action) =>{
+            currentState.playingVideoId = null
         }
     }
 })
