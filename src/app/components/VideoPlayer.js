@@ -13,7 +13,9 @@ export const VideoPlayer = (props) =>{
     const dispatch = useDispatch()
     const playingVideoId =   useSelector(playingVideoSelector)
     const changeStatushandler = createOnStateChange(dispatch, playNextVideo)
-    console.log(playingVideoId)
+    
+    
+
     const loadVideo = () => {
         // the Player object is created uniquely based on the id in props
         player = new window.YT.Player(`youtube-player`, {

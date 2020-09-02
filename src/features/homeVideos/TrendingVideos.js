@@ -6,8 +6,10 @@ import { VideoCard } from "../../app/components/VideoCard";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { getAllTrendingVideosSelector , fetchTrendingVideos,  getVideoFetchStatus , getNextPageToken} from "./homeVideosSlice";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { AppContainer } from "../../app/components/AppContainer";
 
 import { PENDING_STATUS } from "../../app/utils/ApiStatusConstants";
+
 export const TrendingVideos =(props) =>{
 
     const dispatch = useDispatch()
@@ -29,13 +31,9 @@ export const TrendingVideos =(props) =>{
                 hasMore={nextPageToken != null}
                 next={ () => onScrollHandler(nextPageToken,videoFetchStatus, dispatch) }
                 style={{overflow: "hidden" }}    >        
-                <Grid container   spacing={1} justify="space-evenly">    
-                    <Grid item xs={2} sm={2}  md={false} lg={false} />
-                    <Grid item container xs={8} sm={8} md={12}  spacing={2} >
-                            {videoCards}                  
-                    </Grid>                                    
-                    <Grid item xs={2} sm={2}  md={false} lg={false}/>
-                </Grid>
+                <AppContainer>
+                    {videoCards}    
+                </AppContainer>
             </InfiniteScroll>
             <Fade in={showLoading}> 
                 <Grid container  justify="center"> 

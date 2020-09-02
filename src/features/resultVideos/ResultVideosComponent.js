@@ -9,6 +9,7 @@ import { VideoCard } from "../../app/components/VideoCard";
 import { useLocation , Redirect} from "react-router-dom";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { IDLE_STATUS, PENDING_STATUS } from "../../app/utils/ApiStatusConstants";
+import { AppContainer } from "../../app/components/AppContainer";
 
 
 export const ResultVideosComponent = (props) =>{
@@ -49,13 +50,9 @@ export const ResultVideosComponent = (props) =>{
                 next = { () => onScrollHandler(searchQuery, searchVideosStatus, nextPageToken,dispatch, fetchVideos)}
                 style={{overflow: "hidden" }}
             >
-                <Grid container   spacing={1} justify="space-evenly">    
-                    <Grid item xs={2} sm={2}  md={false} lg={false} />
-                    <Grid item container xs={8} sm={8} md={12}  spacing={2} >
-                        {videoCards}                  
-                    </Grid>                                    
-                    <Grid item xs={2} sm={2}  md={false} lg={false}/>
-                </Grid>  
+                <AppContainer>
+                    {videoCards}    
+                </AppContainer>
             </InfiniteScroll>
             <Fade in={showLoading}> 
                 <Grid container  justify="center"> 

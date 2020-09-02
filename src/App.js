@@ -9,6 +9,7 @@ import { TrendingVideos } from "./features/homeVideos/TrendingVideos";
 
 import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ResultVideosComponent } from "./features/resultVideos/ResultVideosComponent";
+import { AppContainer } from "./app/components/AppContainer";
 
 const drawerWidth = 280;
 
@@ -42,22 +43,17 @@ function App( props) {
         <SideBar container={containerSide} />
         <main className={classes.content}>
           <div className={classes.toolbar} />
-            <Grid container>    
-              <Switch>
-
-                <Route exact path="/">
-                  <TrendingVideos />
-                </Route>
-
-                <Route exact path="/results">
-                  <ResultVideosComponent/>
-                </Route>
-                <Route exact path="/player">
-                  <VideoPlayer id='Y8x3LWVC1L4'/>
-                </Route>                
-                
-              </Switch> 
-            </Grid>    
+            <Switch>
+              <Route exact path="/">
+                <TrendingVideos />
+              </Route>
+              <Route exact path="/results">
+                <ResultVideosComponent/>
+              </Route>
+              <Route exact path="/player">
+                <VideoPlayer id='Y8x3LWVC1L4'/>
+              </Route>                
+            </Switch> 
         </main>
       </div>
     </Router>
