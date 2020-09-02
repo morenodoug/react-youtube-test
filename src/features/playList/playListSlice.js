@@ -41,6 +41,15 @@ const playListSlice = createSlice({
             if(playingVideoIndex >  0){
                 currentState.playingVideoId = currentState.videos[playingVideoIndex-1].videoId
             }
+        },
+        removeVideo:(currentState, action) =>{
+            const videoIndex = currentState.videos.findIndex( video =>  video.videoId ===action.payload.videoId)
+            if(videoIndex >= 0){
+                const firstPart =  currentState.videos.slice(0,videoIndex)
+                const lastPart = currentState.videos.slice(videoIndex +1, currentState.videos.length)
+                currentState.videos = [...firstPart, ...lastPart]
+            }
+           
         }
 
 
