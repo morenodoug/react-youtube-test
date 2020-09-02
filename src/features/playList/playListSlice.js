@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState ={
     videos: [],
+
     playingVideoId: null
 
 }
@@ -27,6 +28,14 @@ const playListSlice = createSlice({
                 currentState.videos.push(newVideo)
             }
         },
+        playNextVideo:(currentState, action) =>{
+            const playingVideoIndex = currentState.videos.findIndex( video => video.videoId === currentState.playingVideoId)
+            if(playingVideoIndex <  currentState.videos.length -1){
+                currentState.playingVideoId = currentState.videos[playingVideoIndex+1].videoId
+
+            }
+
+        }
 
     },
     extraReducers:{
@@ -38,9 +47,9 @@ const playListSlice = createSlice({
         }
     }
 })
-export const    {addVideo} = playListSlice.actions
-
-export const getPlayListVideosSelector =  state => state.playList.videos
+export const    {addVideo,playNextVideo} = playListSlice.actions
 export  default playListSlice.reducer
+export const getPlayListVideosSelector =  state => state.playList.videos
+export const playingVideoSelector = state =>  state.playList.playingVideoId
 
 
