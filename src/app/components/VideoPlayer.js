@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 import { YOUTUBE_IFRAME_API } from "../utils/Constants";
 import { openVideoPlayer, closeVideoPlayer } from "../../features/videoPlayer/VideoPLayerSlice";
 import { useDispatch, useSelector } from "react-redux";
-import {playingVideoSelector, playNextVideo} from "../../features/playList/playListSlice"
+import {playingVideoSelector, playNextVideo, playPreviousVideo} from "../../features/playList/playListSlice"
 
 
 export const VideoPlayer = (props) =>{
@@ -14,7 +14,7 @@ export const VideoPlayer = (props) =>{
     const playingVideoId =   useSelector(playingVideoSelector)
     const changeStatushandler = createOnStateChange(dispatch, playNextVideo)
     
-    
+
 
     const loadVideo = () => {
         // the Player object is created uniquely based on the id in props
@@ -22,7 +22,8 @@ export const VideoPlayer = (props) =>{
           videoId: playingVideoId,
           events: {
 
-            'onStateChange': changeStatushandler
+            'onStateChange': changeStatushandler,
+            'onReady':onPlayerReady
           }          
         });
     };
@@ -50,7 +51,8 @@ export const VideoPlayer = (props) =>{
             <Grid item xs={2} sm={2}  md={false} lg={false} />
             <Grid item container xs={8} sm={8} md={12}  spacing={2} direction="column"  >
               <Grid sm={12} justify="center" container item >
-                <Button variant="contained" color="primary" size="medium" onClick={()=> startVideo(player, dispatch, playNextVideo)}>  play</Button>
+                <Button variant="contained" color="primary" size="medium" onClick={()=> previousVideo(player, dispatch, playPreviousVideo)}>  Previous</Button>
+                <Button variant="contained" color="primary" size="medium" onClick={()=> startVideo(player, dispatch, playNextVideo)}>  Next</Button>
               </Grid>
               
               <div id={`youtube-player`}></div>
@@ -76,6 +78,11 @@ function startVideo(player, dispatch, playNextVideoProvider){
     // player.cuePlaylist(["JszxlTOq0Sw","sypYNw6Fymk"]);
     dispatch(playNextVideoProvider({}))
 }
+function previousVideo(player, dispatch, playPreviousVideoProvider){
+  // console.log(player)
+  // player.cuePlaylist(["JszxlTOq0Sw","sypYNw6Fymk"]);
+  dispatch(playPreviousVideoProvider({}))
+}
 
 function createOnStateChange(dispatch, playNextVideoProvider){
   return(event) =>{
@@ -86,3 +93,7 @@ function createOnStateChange(dispatch, playNextVideoProvider){
 }
 
 
+function onPlayerReady(event) {  
+  event.target.playVideo();
+
+}

@@ -4,13 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { NavBar } from "./app/components/NavBar";
 import {SideBar} from './app/components/SideBar'
 import { VideoPlayer } from "./app/components/VideoPlayer";
-import {Grid} from "@material-ui/core"
 import { TrendingVideos } from "./features/homeVideos/TrendingVideos";
-
 import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ResultVideosComponent } from "./features/resultVideos/ResultVideosComponent";
-import { AppContainer } from "./app/components/AppContainer";
-
 const drawerWidth = 280;
 
 const useStyles = makeStyles(theme => ({
