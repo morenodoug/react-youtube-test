@@ -54,6 +54,7 @@ function createVideoCard(video){
                 viewCount ={video.statistics.viewCount}
                 thumbnailSrc ={video.snippet.thumbnails.medium.url}
                 videoId={video.id}
+                publishedAt ={video.snippet.publishedAt}
                 />
         </Grid>        
     )

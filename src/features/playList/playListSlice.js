@@ -63,7 +63,7 @@ const playListSlice = createSlice({
         }
     }
 })
-export const    {addVideo,playNextVideo, playPreviousVideo} = playListSlice.actions
+export const    {addVideo,playNextVideo, playPreviousVideo, removeVideo} = playListSlice.actions
 export  default playListSlice.reducer
 export const getPlayListVideosSelector =  state => state.playList.videos
 export const playingVideoSelector = state =>  state.playList.playingVideoId

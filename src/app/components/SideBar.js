@@ -7,7 +7,7 @@ import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button"
 import { setMobileOpen ,isMobileOpen} from "../../features/ui/uiSlice";
-import { addVideo , getPlayListVideosSelector, startPlayingList} from "../../features/playList/playListSlice";
+import { addVideo , getPlayListVideosSelector, startPlayingList, removeVideo} from "../../features/playList/playListSlice";
 import { isVideoPlayerOpenSelector} from "../../features/videoPlayer/VideoPLayerSlice"
 import { VideoCard } from "../components/VideoCard";
 import { unwrapResult } from '@reduxjs/toolkit'
@@ -48,6 +48,10 @@ const useStyles = makeStyles(theme => ({
     },
     playButton:{
       marginTop:"8px"
+    },
+    logo:{
+      display:"flex",
+      justifyContent:"center"
     }
   }));    
 
@@ -61,17 +65,23 @@ export const SideBar =(props) =>{
     const mobileOpen = useSelector(isMobileOpen)
     const playListVideos = useSelector(getPlayListVideosSelector)
     const isVideoPlayerOpen =useSelector(isVideoPlayerOpenSelector)
-    const videoCards = playListVideos.map(createVideoCard )   
+    const videoCards = playListVideos.map(  (video) => createVideoCard(video, dispatch) )   
+
     const drawer = (
       <div>
-        <div className={classes.toolbar} />
+        <div className={classes.toolbar} >
+           <div className={classes.logo}>
+              aja
+           </div>
+        </div>
         <Divider />
           <Button 
-            disabled = {isVideoPlayerOpen}
+            disabled = {isVideoPlayerOpen || playListVideos.length === 0}
             variant="contained" 
             color="primary" 
             size="medium" className={classes.playButton} 
-            onClick={ () => startPlayingVideoList(history, dispatch, startPlayingList)} >  play</Button>
+            onClick={ () => startPlayingVideoList(history, dispatch, startPlayingList)} >  play
+          </Button>
         <List>
           {videoCards}
         </List>
@@ -141,7 +151,7 @@ function startPlayingVideoList(historyProvider, dispatch,startPlayingListProvide
   .catch(serializedError =>  alert("mejor no redirecciono"))
 }
 
-function createVideoCard(video){
+function createVideoCard(video, dispatch){
 
   return <VideoCard   
           description = {video.description}
@@ -151,5 +161,7 @@ function createVideoCard(video){
           thumbnailSrc ={video.thumbnailSrc}
           videoId={video.videoId}
           key={`list-${video.videoId}`}
+          publishedAt ={video.publishedAt}
+          removeVideoProvider = { () => (dispatch(removeVideo({videoId:video.videoId}))) }
   />;
 }

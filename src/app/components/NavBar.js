@@ -56,10 +56,10 @@ export const NavBar = (props) =>{
     const history = useHistory();
     return (
 
-  <AppBar position="fixed" className={classes.appBar} color={common.white}> 
+  <AppBar position="fixed" className={classes.appBar} color="default" title="HOME">  
     <Toolbar>
       <IconButton
-        color=""
+       
         aria-label="open drawer"
         edge="start"
         onClick={() => dispatch(setMobileOpen({}))}
