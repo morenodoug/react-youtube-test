@@ -14,7 +14,7 @@ import { addVideo , getPlayListVideosSelector, startPlayingList, removeVideo} fr
 import { isVideoPlayerOpenSelector} from "../../features/videoPlayer/VideoPLayerSlice"
 import { VideoCard } from "../components/VideoCard";
 import { unwrapResult } from '@reduxjs/toolkit'
-import { useHistory  } from "react-router-dom";
+import { useHistory, NavLink  } from "react-router-dom";
 
 const drawerWidth = 280;
 
@@ -44,10 +44,12 @@ const useStyles = makeStyles(theme => ({
     drawerHeader: {
       display: 'flex',
       alignItems: 'center',
+      justifyContent: 'center',
+    
       padding: theme.spacing(0, 1),
       // necessary for content to be below app bar
       ...theme.mixins.toolbar,
-      justifyContent: 'center',
+      
     },    
     drawerPaper: {
       width: drawerWidth,
@@ -82,12 +84,12 @@ export const SideBar =(props) =>{
 
     const drawer = (
       <div>
-        <div className={classes.drawerHeader} >
-     
-              <YouTubeIcon color="secondary" fontSize="large"/>
+          <NavLink to="/" activeStyle={{textDecoration:'none'}}>
+            <div className={classes.drawerHeader}>
+            <YouTubeIcon color="secondary" fontSize="large"/>
               <Typography variant="h5">IuTube</Typography>
-     
-        </div>
+            </div>
+          </NavLink> 
         <Divider />
           <div className={classes.playButtonWrapper}>
             <Button 
@@ -98,18 +100,14 @@ export const SideBar =(props) =>{
               endIcon={<PlayArrowIcon/>}
               onClick={ () => startPlayingVideoList(history, dispatch, startPlayingList)} >  play
             </Button>            
-
           </div>
-
         <List>
           {videoCards}
-        </List>
-  
+        </List> 
       </div>
     );    
 
-    return (
-   
+    return (  
         <nav className={classes.drawer} aria-label="mailbox folders" 
          onDragOver={allowDrop}
          onDrop={(event) =>{ dropHandler(event, dispatch)}} >

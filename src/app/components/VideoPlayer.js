@@ -1,16 +1,27 @@
 
 import React, {  useEffect} from 'react'
 import Grid from "@material-ui/core/Grid"
+import { makeStyles , useTheme} from "@material-ui/core/styles";
 import { Button } from '@material-ui/core';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import { YOUTUBE_IFRAME_API } from "../utils/Constants";
 import { openVideoPlayer, closeVideoPlayer } from "../../features/videoPlayer/VideoPLayerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {playingVideoSelector, playNextVideo, playPreviousVideo} from "../../features/playList/playListSlice"
 
 
+const useStyles = makeStyles((theme) => ({
+  buttons: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 export const VideoPlayer = (props) =>{
     let player = null
     const dispatch = useDispatch()
+    const classes = useStyles()
     const playingVideoId =   useSelector(playingVideoSelector)
     const changeStatushandler = createOnStateChange(dispatch, playNextVideo)
     
@@ -47,17 +58,19 @@ export const VideoPlayer = (props) =>{
     }, [])
   
     return(
-        <Grid container   spacing={1} justify="space-evenly">    
-            <Grid item xs={2} sm={2}  md={false} lg={false} />
-            <Grid item container xs={8} sm={8} md={12}  spacing={2} direction="column"  >
-              <Grid sm={12} justify="center" container item >
-                <Button variant="contained" color="primary" size="medium" onClick={()=> previousVideo(player, dispatch, playPreviousVideo)}>  Previous</Button>
-                <Button variant="contained" color="primary" size="medium" onClick={()=> startVideo(player, dispatch, playNextVideo)}>  Next</Button>
-              </Grid>
-              
+        <Grid container   justify="space-evenly">    
+          <Grid item xs={false} sm={false}  md={false} lg={2} />
+          <Grid item container xs={8} sm={8} md={12}  spacing={2} direction="column"  >
+            <Grid  justify="center" container item spacing={2} className={classes.buttons}>
+              <Button variant="contained" color="primary" size="medium" startIcon={<SkipPreviousIcon/>}  onClick={()=> previousVideo(player, dispatch, playPreviousVideo)}>  Previous</Button>
+              <Button variant="contained" color="primary" size="medium" endIcon={<SkipNextIcon/>} onClick={()=> startVideo(player, dispatch, playNextVideo)}>  Next</Button>
+            </Grid>
+            <Grid item container  justify="space-evenly"  >
               <div id={`youtube-player`}></div>
-            </Grid>                                    
-            <Grid item xs={2} sm={2}  md={false} lg={false}/>
+            </Grid>
+            
+          </Grid>                                    
+          <Grid item xs={false} sm={false}  md={false} lg={2}/>
         </Grid>   
     )
 }
