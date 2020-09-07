@@ -18,7 +18,9 @@ const useStyles = makeStyles( theme =>{
         paddingTop: "calc(591.44 / 1127.34 * 100%)"
       },
       header:{
-        padding:0
+          padding:0,
+          marginBottom:"-8px"
+           
       },
       cardContent:{
         padding:  theme.spacing(1)
@@ -77,7 +79,7 @@ VideoCard.propTypes ={
   title : PropTypes.string,
   description: PropTypes.string,
   channelTitle: PropTypes.string,
-  publishedAt: PropTypes.object,
+  publishedAt: PropTypes.string,
   thumbnailSrc: PropTypes.string,
   viewCount: PropTypes.string,
   removeVideoProvider: PropTypes.func
@@ -100,10 +102,9 @@ function createHeader( removeVideoProvider, classes){
 
   return (
     <CardHeader
-      className={classes.header}
-      disableSpacing
+      classes={{root:classes.header}}
       action={
-        <IconButton aria-label="settings" onClick={() => removeVideoProvider()}>
+        <IconButton aria-label="remove video" onClick={() => removeVideoProvider()}>
           <CancelIcon />
         </IconButton>
       }

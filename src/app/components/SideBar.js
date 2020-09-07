@@ -5,7 +5,10 @@ import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Button from "@material-ui/core/Button"
+import YouTubeIcon from '@material-ui/icons/YouTube';
+import Typography from '@material-ui/core/Typography';
 import { setMobileOpen ,isMobileOpen} from "../../features/ui/uiSlice";
 import { addVideo , getPlayListVideosSelector, startPlayingList, removeVideo} from "../../features/playList/playListSlice";
 import { isVideoPlayerOpenSelector} from "../../features/videoPlayer/VideoPLayerSlice"
@@ -38,20 +41,30 @@ const useStyles = makeStyles(theme => ({
       }
     },
     // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
+    drawerHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: theme.spacing(0, 1),
+      // necessary for content to be below app bar
+      ...theme.mixins.toolbar,
+      justifyContent: 'center',
+    },    
     drawerPaper: {
-      width: drawerWidth
+      width: drawerWidth,
     },
     content: {
       flexGrow: 1,
       padding: theme.spacing(3)
     },
-    playButton:{
+    playButtonWrapper:{
+      display:"flex",
+      justifyContent:"center",
       marginTop:"8px"
     },
     logo:{
       display:"flex",
-      justifyContent:"center"
+      justifyContent:"center",
+      alignItems:"center"
     }
   }));    
 
@@ -69,19 +82,25 @@ export const SideBar =(props) =>{
 
     const drawer = (
       <div>
-        <div className={classes.toolbar} >
-           <div className={classes.logo}>
-              aja
-           </div>
+        <div className={classes.drawerHeader} >
+     
+              <YouTubeIcon color="secondary" fontSize="large"/>
+              <Typography variant="h5">IuTube</Typography>
+     
         </div>
         <Divider />
-          <Button 
-            disabled = {isVideoPlayerOpen || playListVideos.length === 0}
-            variant="contained" 
-            color="primary" 
-            size="medium" className={classes.playButton} 
-            onClick={ () => startPlayingVideoList(history, dispatch, startPlayingList)} >  play
-          </Button>
+          <div className={classes.playButtonWrapper}>
+            <Button 
+              disabled = {isVideoPlayerOpen || playListVideos.length === 0}
+              variant="contained" 
+              color="primary" 
+              size="medium" 
+              endIcon={<PlayArrowIcon/>}
+              onClick={ () => startPlayingVideoList(history, dispatch, startPlayingList)} >  play
+            </Button>            
+
+          </div>
+
         <List>
           {videoCards}
         </List>
