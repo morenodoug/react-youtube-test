@@ -1,5 +1,5 @@
 
-import React, {  useEffect} from 'react'
+import React, {  useEffect, useState} from 'react'
 import Grid from "@material-ui/core/Grid"
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from '@material-ui/core';
@@ -26,7 +26,7 @@ export const VideoPlayer = (props) =>{
     const changeStatushandler = createOnStateChange(dispatch, playNextVideo)
     
 
-
+    const [playerState, setPlayerState] = useState(null)
     const loadVideo = () => {
         // the Player object is created uniquely based on the id in props
         player = new window.YT.Player(`youtube-player`, {
@@ -34,9 +34,18 @@ export const VideoPlayer = (props) =>{
           events: {
 
             'onStateChange': changeStatushandler,
-            'onReady':onPlayerReady
+            'onReady':onPlayerReady,
+            height: '168',
+            width: '300',
           }          
         });
+        if (playerState == null){
+          console.log("set player")
+          setPlayerState(player)
+
+        }
+
+          
     };
     useEffect(() => {
       if (!window.YT) { // If not, load the script asynchronously
@@ -46,9 +55,14 @@ export const VideoPlayer = (props) =>{
         loadVideo();
   
       }
+    },[])
 
-      return () => player.destroy()
-    })
+    useEffect(() => {
+      if(playerState !== null){
+        playerState.loadVideoById(playingVideoId)
+      }
+
+    },[playingVideoId])    
 
     useEffect(() => {
       dispatch(openVideoPlayer())
