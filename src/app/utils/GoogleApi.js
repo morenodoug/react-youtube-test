@@ -3,7 +3,7 @@ import axios from "axios";
 const YOUTUBE_VIDEO_URI ="https://www.googleapis.com/youtube/v3/videos"
 const YOUTUBE_SEARCH_URI= "https://www.googleapis.com/youtube/v3/search"
 export const API_KEY = "key"
-const YOUTUBE_API_KEY_VALUE= "AIzaSyB93kEVTztcMiRx23kN4lW1Z6dIiXTmsiw"
+const YOUTUBE_API_KEY_VALUE= process.env.REACT_APP_YOUTUBE_API_KEY
 
 export const CHART_KEY = "chart"
 export const TRENDING_VIDEOS_CHART_VALUE= "mostPopular"

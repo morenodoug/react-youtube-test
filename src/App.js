@@ -27,10 +27,9 @@ const useStyles = makeStyles(theme => ({
 function App( props) {
   const { window } = props;
   const classes = useStyles();
-
   const containerSide =
     window !== undefined ? () => window().document.body : undefined;
-
+  
   return (
     <Router>
       <div className={classes.root}>
